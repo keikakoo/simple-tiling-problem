@@ -220,7 +220,7 @@ def main():
                 if(new_item.deformityNo<4):
                     if(mapp[0][i-1].rightside==-(new_item.leftside) and new_item.upside==0 and new_item.downside==-(mapp[1][i].upside)):
                         mapp[0][i]=new_item
-                    elif(mapp[0][i-1].rightside==-(new_item.upside) and new_item.rightside==0 and new_item.leftside==-(mapp[1][i].upside)):
+                    elif((mapp[0][i-1].rightside==-(new_item.upside) or None) and new_item.rightside==0 and (new_item.leftside==-(mapp[1][i].upside) or None)):
                         #rotate left
                         new_item.rotate_left()
                         mapp[0][i]=new_item
@@ -246,10 +246,11 @@ def main():
 
             matchup+=1
         if(matchup>len(copyofData)):
-            shapless=shape(-(mapp[i][j-1].rightside) if mapp[i][j-1]!=None else 0,
-            -(mapp[i][j+1].leftside) if mapp[i][j-1]!=None else 0,
-            -(mapp[i-1][j].downside) if mapp[i][j-1]!=None else 0,
-            -(mapp[i+1][j].upside) if mapp[i][j-1]!=None else 0)
+            shapless=shape(-(mapp[0][i-1].rightside) if mapp[0][i-1]!=None or i-1>0 else 0,
+            -(mapp[0][i+1].leftside) if mapp[0][i+1]!=None else 0,
+             0,# up side satre aval hamishe sefre
+            -(mapp[1][i].upside) if mapp[1][i]!=None else 0)
+            mapp[0][i]=shapless
             shape.joker_shape+=1
     #por kardane sotone akhar
     for i in range(n-1):
@@ -316,10 +317,11 @@ def main():
                         copyofData.append(new_item)
                 matchup+=1
             if(matchup>len(copyofData)):
-                shapless=shape(-(mapp[i][j-1].rightside) if mapp[i][j-1]!=None else 0,
-                -(mapp[i][j+1].leftside) if mapp[i][j-1]!=None else 0,
-                -(mapp[i-1][j].downside) if mapp[i][j-1]!=None else 0,
-                -(mapp[i+1][j].upside) if mapp[i][j-1]!=None else 0)
+                shapless=shape(-(mapp[i][n-2].rightside) if mapp[i][n-2]!=None else 0,
+                 0,
+                -(mapp[i-1][n-1].downside) if mapp[i-1][n-1]!=None else 0,
+                -(mapp[i+1][n-1].upside) if mapp[i+1][n-1]!=None else 0)
+                mapp[i][n-1]=shapless
                 shape.joker_shape+=1
 #fill the first column
     for i in range(1,n):
@@ -389,10 +391,11 @@ def main():
 
                     matchup+=1
                 if(matchup>len(copyofData)):
-                    shapless=shape(-(mapp[i][j-1].rightside) if mapp[i][j-1]!=None else 0,
-                    -(mapp[i][j+1].leftside) if mapp[i][j-1]!=None else 0,
-                    -(mapp[i-1][j].downside) if mapp[i][j-1]!=None else 0,
-                    -(mapp[i+1][j].upside) if mapp[i][j-1]!=None else 0)
+                    shapless=shape( 0,
+                    -(mapp[i][0].leftside) if mapp[i][0]!=None else 0,
+                    -(mapp[i-1][0].downside) if mapp[i-1][0]!=None else 0,
+                    -(mapp[i+1][0].upside) if mapp[i+1][0]!=None else 0)
+                    mapp[i][0]=shapless
                     shape.joker_shape+=1
 #fill the last row
     for i in range(1,n-1):
@@ -468,10 +471,11 @@ def main():
 
                     matchup+=1
                 if(matchup>len(copyofData)):
-                    shapless=shape(-(mapp[i][j-1].rightside) if mapp[i][j-1]!=None else 0,
-                    -(mapp[i][j+1].leftside) if mapp[i][j-1]!=None else 0,
-                    -(mapp[i-1][j].downside) if mapp[i][j-1]!=None else 0,
-                    -(mapp[i+1][j].upside) if mapp[i][j-1]!=None else 0)
+                    shapless=shape(-(mapp[n-1][i-1].rightside) if mapp[n-1][i-1]!=None else 0,
+                    -(mapp[n-1][i+1].leftside) if mapp[n-1][i+1]!=None else 0,
+                    -(mapp[n-1][i].downside) if mapp[n-1][i]!=None else 0,
+                    0)
+                    mapp[n-1][i]=shapless
                     shape.joker_shape+=1
 
 
